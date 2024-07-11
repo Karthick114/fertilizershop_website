@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Scheduler</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+
+  <!-- font awesome style -->
+  <link href="./css/font-awesome.min.css" rel="stylesheet" />
+
+  <style>
+    .crop-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        /* Adjust as needed */
+        margin: 20px auto;
+        overflow: hidden;
+        border-radius: 15px;
+        /* Rounded corners */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    .crop-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+        /* Smooth transition for scaling */
+    }
+
+    .crop-image:hover {
+        transform: scale(1.1);
+        /* Scale up on hover */
+    }
+
+
+    .crop-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        /* Use flexbox */
+        justify-content: space-between;
+        /* Align items to the left and right */
+        border-radius: 15px 15px 0 0;
+        /* Rounded corners, except bottom left and right */
+    }
+
+    .crop-name {
+        color: #fff;
+        font-size: 18px;
+        margin-bottom: 5px;
+        flex-grow: 1;
+        /* Allow the name to take up remaining space */
+    }
+
+    .download-icon {
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+
+    .download-icon:hover {
+        color: #ffc107;
+        /* Change color on hover */
+    }
+</style>
+
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="./images/Home.jpg" alt="">
+    </div>
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="./index.html">
+            <span>
+              Shree Amman Agro Center
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  mx-auto " style="font-weight:bold ">
+              <li class="nav-item">
+                <a class="nav-link" href="./">Home </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./products">Product </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./orders">Orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./scheduler">Scheduler  </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="./about">About <span class="sr-only">(current)</span> </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./contact">Contact</a>
+              </li>
+            </ul>
+            <div class="user_option">
+              <div id="op" style="cursor: pointer;">
+                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                  <i class="bi bi-person-fill" style="font-size: large;"></i>
+                </button>
+              </div>
+             
+              <a href="" class="order_online">
+                <label class="lab1">Purchase Online</label>
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+
+    <!--Login and Sign Up-->
+    <div id="ade" class="login-form"
+      style="display: none; border-radius: 20px; box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); position: fixed; top: -2%; left: 70%; transform: translateX(-50%); z-index: 9999;">
+      <label id="X"
+        style="cursor: pointer; font-size: larger; position: absolute; margin-top: -5px; margin-left: 5px; font-weight: bold; color: rgb(53, 53, 53);">X</label>
+      <img src="/images/admin.png" alit="Not Found" style="width: 15%; margin-left: 42%;">
+      <h2 style="color: black; margin-top: 3%;">Account</h2>
+      <form id="loginForm" method="POST"
+        style="margin-top: 5%; border-radius: 20px;box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);">
+        <h2 style="font-size: x-large; padding: 0;">Login</h2>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-text" style="background-color: #fff;"><i class="bi bi-envelope-fill"
+                style="color: black;"></i></span>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <span class="icon"><i class="bi bi-lock-fill"></i></span>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+        </div>
+        <a href="#" id="forgotPasswordLink" style="margin-left: 20%;text-decoration: none;">Forgot Password??</a>
+        <div class="signup-link">
+          Don't have an account!? <a href="#" id="toggleSignUp">Sign up</a>
+        </div><br>
+        <button type="submit" class="btn btn-primary" style="border-radius: 30px;">Login</button>
+      </form>
+      <!-- Sign-up form -->
+      <form id="signupForm" action="signup.php" method="POST"
+        style="display: none; margin-top: 5%; border-radius: 20px;box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);">
+        <h2 style="font-size: x-large; padding: 0;">Sign-up</h2>
+        <div class="form-group">
+          <span class="icon"><i class="bi bi-person-fill"></i></span>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-text" style="background-color: #fff;"><i class="bi bi-envelope-fill"
+                style="color: black;"></i></span>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <span class="icon"><i class="bi bi-lock-fill"></i></span>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+        </div>
+        <div class="footer_social">
+          <a href="">
+            <i class="bi bi-google" style="text-decoration: none; margin-left: 45%;font-size: 150%;"></i>
+          </a>
+
+        </div>
+        <div class="signup-link">
+          Already Have An Account!? <a href="#" id="togglelogin">Login</a>
+        </div><br>
+        <button type="submit" class="btn btn-primary" style="border-radius: 30px;">Sign Up</button>
+      </form>
+      <!--Forgot Password-->
+      <form id="forgotPasswordForm" action="#" method="POST"
+        style=" display: none; margin-top: 5%; border-radius: 20px;box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);">
+        <h2 style="font-size: x-large; padding: 0;">Reset Password</h2>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-text" style="background-color: #fff;"><i class="bi bi-envelope-fill"
+                style="color: black;"></i></span>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+          </div>
+        </div>
+        <div class="footer_social">
+          <a href="">
+            <i class="bi bi-google" style="text-decoration: none; margin-left: 42%;font-size: 150%;"></i>
+          </a>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" style="border-radius: 30px;">Reset Password</button>
+      </form>
+    </div>
+
+  </div>
+
+ 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- about section -->
+
+  <section class="about_section layout_padding">
+    <div class="container  ">
+
+      <div class="row">
+        <div class="col-md-6 ">
+          <div class="img-box">
+            <img src="./images/home.jpg" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                We Are Shree Amman Agro Center
+              </h2>
+            </div>
+
+            <!-- end scheduler section -->
+          
+            <p>
+              Shree Amman Agro Center Fertlizer, incorporated on October 10, 2010, is the oldest operating and the first fertilizer Shop in the Ghorasahan Block to achieve full scale Selling of a complete line of mixed fertilizer ,pesticide and Seeds alternatively  inorganic fertilizer and more famously called by our farmers as the DAP,NPK,Urea fertilizers Of Different Company Like Paras etc.
+            </p>
+            <a href="">
+              Read More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end about section -->
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              Contact Us
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Location
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +91 98653 701026
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  shreeammanagrocenter@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              Shree Amman Agro Center
+            </a>
+            <div class="footer_social">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            Opening Hours
+          </h4>
+          <p>
+            Monday - Saturday
+          </p>
+          <p>
+            09.00 Am -10.00 Pm
+          </p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Were Reserved
+        </p>
+      </div>
+    </div>
+  </footer>
+  <!-- footer section -->
+
+  <!-- jQery -->
+  <script src="/js/jquery-3.4.1.min.js"></script>
+
+  <!-- isotope js -->
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+
+  <!--CustomJS-->
+  <script src="/js/custom.js"></script>
+
+
+  <!--Script for the cart functions-->
+  <script src = "./js/cart_function.js" defer></script>
+
+  <!--Fecth Products JS-->
+  <script src="/js/fetch_product.js" defer></script>
+
+  <!-- bootstrap js -->
+  <script src="/js/bootstrap.js"></script>
+
+  <!--Style for Login form-->
+  <style>
+    .login-form {
+      width: 360px;
+      margin: 50px auto;
+    }
+
+    .login-form form {
+      margin-bottom: 15px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-form h2 {
+      margin: 0 0 15px;
+    }
+
+    .form-control,
+    .btn {
+      min-height: 38px;
+      border-radius: 2px;
+    }
+
+    .btn {
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .input-group-addon {
+      font-size: 18px;
+    }
+
+    .login-form {
+      width: 360px;
+      margin: 100px auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-form h2 {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .login-form form .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .login-form form input[type="text"],
+    .login-form form input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding-left: 40px;
+    }
+
+    .login-form form button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .login-form form button:hover {
+      background-color: #0056b3;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 10px;
+      font-size: 18px;
+      color: black;
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .signup-link a {
+      color: #007bff;
+    }
+
+    .signup-link a:hover {
+      text-decoration: none;
+      color: #0056b3;
+    }
+
+    .bi-google:hover {
+      text-decoration: none !important;
+    }
+  </style>
+
+  <!--Email And Password Icons -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Sign UP controls-->
+  <script src="/js/signin-up.js"></script>
+
+  <!--|Script For Sign-IN or UP form |-->
+  <script>
+    document.getElementById('op').addEventListener('click', function () {
+      var adeDiv = document.getElementById('ade');
+      adeDiv.style.display = adeDiv.style.display === 'none' ? 'block' : 'none';
+    });
+    document.getElementById('X').addEventListener('click', function () {
+      document.getElementById('ade').style.display = 'none';
+    });
+    function openAde() {
+      event.preventDefault();
+      var ade = document.getElementById('ade');
+      ade.style.display = 'block';
+    }
+    document.getElementById('toggleSignUp').addEventListener('click', function (event) {
+      event.preventDefault();
+      var loginForm = document.getElementById('loginForm');
+      var signupForm = document.getElementById('signupForm');
+
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'block';
+    });
+    document.getElementById('togglelogin').addEventListener('click', function (event) {
+      event.preventDefault();
+      var loginForm = document.getElementById('signupForm');
+      var signupForm = document.getElementById('loginForm');
+
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'block';
+    });
+
+  </script>
+
+
+
+</body>
+
+</html>

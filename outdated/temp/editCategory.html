@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Category Management</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+  /* Basic styles */
+  /* Basic styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+}
+.wholeContainer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+}
+.formContainer {
+  min-width: 100px;
+  max-width: 600px;
+  margin: auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #007bff;
+}
+.categoryList {
+  list-style: none;
+  padding: 0;
+}
+.categoryItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.categoryItem:last-child {
+  border-bottom: none;
+}
+.categoryText {
+  flex: 1;
+}
+.editBtn, .deleteBtn, .saveBtn, .cancelBtn {
+  cursor: pointer;
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+.editBtn, .deleteBtn {
+  background-color: #007bff;
+  color: #fff;
+  margin-left: 10px;
+}
+.editBtn:hover, .deleteBtn:hover {
+  background-color: #0056b3;
+}
+.saveBtn, .cancelBtn {
+  background-color: #28a745;
+  color: #fff;
+  margin-left: 10px;
+}
+.saveBtn:hover, .cancelBtn:hover {
+  background-color: #218838;
+}
+.addBtn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.addBtn:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 600px) {
+  .formContainer {
+    padding: 10px;
+  }
+  h2 {
+    font-size: 24px;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="wholeContainer">
+<div class="formContainer">
+  <h2>Category Management <i class="fas fa-cogs"></i></h2>
+  <ul class="categoryList" id="categoryList">
+    <!-- Category items will be added dynamically here -->
+  </ul>
+  <div>
+  <button class="addBtn" onclick="addCategory()"><i class="fas fa-plus"></i> Add Category</button>
+  <button class="saveBtn" onclick="finalsaveCategory()" style="background-color: #28a745;"><i class="fas fa-check"></i> Save Changes</button>
+</div>
+</div>
+</div>
+<script src="/home/dandy/Desktop/openworkspace/fetch-1-cons/temp/edit_category.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .min-vh-100 {
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-sm p-4 w-100" style="max-width: 400px;">
+        <h2 class="text-center mb-4">Forgot Password</h2>
+        <form id="otpForm">
+            <div id="otpSection">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="otp">OTP:</label>
+                    <input type="text" class="form-control" id="otp" name="otp" required>
+                </div>
+                <button type="button" class="btn btn-success btn-block" onclick="verifyOtp()">Confirm OTP</button>
+            </div>
+            <div id="passwordSection" style="display: none;">
+                <div class="form-group">
+                    <label for="newPassword">New Password:</label>
+                    <input type="text" class="form-control" id="newPassword" name="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-success btn-block" onclick="changePassword(event)" id="resetPasswrd" style>Reset Password</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function verifyOtp() {
+        const otp = document.getElementById('otp').value;
+        const loginForm = document.getElementById('otpForm');
+        const user_login = new URLSearchParams(new FormData(loginForm));
+        fetch("http://localhost:8080/checkOTP", {
+            method: 'POST',
+            body: user_login
+        }).then(res => res.json())
+            .then(data => {
+                if (data.status) {
+                    document.getElementById('otpSection').style.display = 'none';
+                    document.getElementById('passwordSection').style.display = 'block';
+                } else {
+                    
+                    alert("OTP Not Correct along with email id");
+                }
+            });
+
+    }
+  
+    function changePassword(event){
+        event.preventDefault();
+        const newPass = document.getElementById("newPassword");
+        const retypePass = document.getElementById("confirmPassword");
+        if(newPass.value === retypePass.value){
+            const loginForm = document.getElementById('otpForm');
+            const user_login = new URLSearchParams(new FormData(loginForm));
+        fetch("http://localhost:8080/changePassword", {
+            method: 'POST',
+            body: user_login
+        }).then(res => res.json())
+            .then(data => {
+                if (data.status) {
+                    alert("Successfully Changed");
+                    window.location.href('http://localhost:8080/');
+                } else {
+                    alert("Sorry");
+                }
+            });
+        }else{
+            alert("Both Password is not match");
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Scheduler</title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet" />
+
+    <!-- font awesome style -->
+    <link href="./css/font-awesome.min.css" rel="stylesheet" />
+
+    <style>
+        .product-card {
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            /* Change flex direction to column */
+        }
+
+        .product-image {
+            border-radius: 10px 10px 0 0;
+            /* Adjust border radius */
+            overflow: hidden;
+            flex: 0 0 200px;
+            /* Adjust width of image column */
+        }
+
+        .product-details {
+            padding: 20px;
+            position: absolute;
+            z-index: 9999;
+            margin-left: 40%;
+            border-left: 1px solid #dee2e6;
+            /* Add border after the image */
+            border-top: 1px solid #dee2e6;
+            /* Add border after the Product Description */
+        }
+
+        .newdiv {
+            padding: 20px;
+            margin-left: 0px;
+            margin-top: 5px;
+            border-top: 1px solid #5a5a5a;
+            border-bottom: 1px solid #5a5a5a;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background-color: #333;
+            border-radius: 50%;
+        }
+
+        .hr {
+            margin-left: 50px;
+        }
+
+        .dot {
+            width: 12px;
+            /* Adjust the size of the dot */
+            height: 12px;
+            /* Adjust the size of the dot */
+            background-color: #007bff;
+            /* Default color of the dot */
+            border-radius: 50%;
+        }
+
+        .vertical-line {
+            width: 2px;
+            /* Adjust the width of the vertical line */
+            height: 40px;
+            /* Adjust the height of the vertical line */
+            background-color: #007bff;
+            /* Default color of the vertical line */
+            margin: 5px;
+            /* Center the vertical line */
+        }
+
+        .status {
+            margin-left: 20px;
+            /* Adjust the margin between dot and status text */
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-left: 5%;
+            margin-right: 5%;
+            display: flex;
+            align-items: center;
+            font-size: large;
+            width: auto;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+            height: auto;
+
+        }
+
+        .product img {
+            max-width: 100px;
+            margin-right: 20px;
+        }
+
+        .product-info {
+            flex-grow: 9;
+            font-size: 20px;
+            height: auto;
+            width: 100%;
+        }
+
+        .product-name {
+            font-weight: bold;
+        }
+
+        .product-type {
+            font-weight: normal;
+        }
+
+        .status {
+            margin-left: 0%;
+            color: green;
+        }
+
+        @keyframes moveRightToLeft {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-10px);
+            }
+        }
+
+        .rotate-on-hover {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .rotate-on-hover:hover {
+            transform: rotate(180deg);
+        }
+
+        .zoom {
+            overflow: hidden;
+        }
+
+        .zoom img {
+            transition: transform 0.3s ease;
+        }
+
+        .zoom:hover img {
+            transform: scale(1.2);
+        }
+
+        .product:hover .bi-chevron-compact-right {
+            animation: moveLeftToRight 0.5s forwards;
+            color: blue;
+        }
+
+        @keyframes moveLeftToRight {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(10px);
+            }
+        }
+
+        .container1 {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            /* Adjust z-index to ensure it appears on top */
+            width: 50%;
+        }
+
+        #bgw {
+            background-color: #fff;
+        }
+
+        .x {
+            float: right;
+            font-size: larger;
+            margin-top: -2px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .deleteProduct {
+            display: flex;
+            min-height: 100%;
+            width: 10px;
+            align-content: start;
+            margin: 3%;
+        }
+
+        .deleteProduct-cross {
+            cursor: pointer;
+            max-height: 25px;
+            min-width: 20px;
+            border-radius: 40%;
+        }
+    </style>
+
+</head>
+
+<body class="sub_page">
+
+    <div class="hero_area">
+        <div class="bg-box">
+            <img src="./images/Home.jpg" alt="">
+        </div>
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <a class="navbar-brand" href="./index.html">
+                        <span>
+                            Shree Amman Agro Center
+                        </span>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class=""> </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav  mx-auto " style="font-weight:bold ">
+                            <li class="nav-item">
+                                <a class="nav-link" href="./">Home </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./products">Product </a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="./orders">Orders</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#">Scheduler <span class="sr-only">(current)</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./about">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./contact">Contact</a>
+                            </li>
+                        </ul>
+                        <div class="user_option">
+                            <div id="op" style="cursor: pointer;">
+                                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                                    <i class="bi bi-person-fill" style="font-size: large;"></i>
+                                </button>
+                            </div>
+
+                            <a href="" class="order_online">
+                                <label class="lab1">Purchase Online</label>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- end header section -->
+
+        <!--Login and Sign Up-->
+        <div id="ade" class="login-form"
+            style="display: none; border-radius: 20px; box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); position: fixed; top: -2%; left: 70%; transform: translateX(-50%); z-index: 9999;">
+            <label id="X"
+                style="cursor: pointer; font-size: larger; position: absolute; margin-top: -5px; margin-left: 5px; font-weight: bold; color: rgb(53, 53, 53);">X</label>
+            <img src="/images/admin.png" alit="Not Found" style="width: 15%; margin-left: 42%;">
+            <h2 style="color: black; margin-top: 3%;">Account</h2>
+            <form id="loginForm" method="POST"
+                style="margin-top: 5%; border-radius: 20px;box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);">
+                <h2 style="font-size: x-large; padding: 0;">Login</h2>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #fff;"><i class="bi bi-envelope-fill"
+                                style="color: black;"></i></span>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="icon"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                        required>
+                </div>
+                <a href="#" id="forgotPasswordLink" style="margin-left: 20%;text-decoration: none;">Forgot
+                    Password??</a>
+                <div class="signup-link">
+                    Don't have an account!? <a href="#" id="toggleSignUp">Sign up</a>
+                </div><br>
+                <button type="submit" class="btn btn-primary" style="border-radius: 30px;">Login</button>
+            </form>
+            <!-- Sign-up form -->
+            <form id="signupForm" action="signup.php" method="POST"
+                style="display: none; margin-top: 5%; border-radius: 20px;box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);">
+                <h2 style="font-size: x-large; padding: 0;">Sign-up</h2>
+                <div class="form-group">
+                    <span class="icon"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username"
+                        required>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #fff;"><i class="bi bi-envelope-fill"
+                                style="color: black;"></i></span>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="icon"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                        required>
+                </div>
+                <div class="footer_social">
+                    <a href="">
+                        <i class="bi bi-google" style="text-decoration: none; margin-left: 45%;font-size: 150%;"></i>
+                    </a>
+
+                </div>
+                <div class="signup-link">
+                    Already Have An Account!? <a href="#" id="togglelogin">Login</a>
+                </div><br>
+                <button type="submit" class="btn btn-primary" style="border-radius: 30px;">Sign Up</button>
+            </form>
+            <!--Forgot Password-->
+            <form id="forgotPasswordForm" action="#" method="POST"
+                style=" display: none; margin-top: 5%; border-radius: 20px;box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);">
+                <h2 style="font-size: x-large; padding: 0;">Reset Password</h2>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #fff;"><i class="bi bi-envelope-fill"
+                                style="color: black;"></i></span>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="footer_social">
+                    <a href="">
+                        <i class="bi bi-google" style="text-decoration: none; margin-left: 42%;font-size: 150%;"></i>
+                    </a>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary" style="border-radius: 30px;">Reset Password</button>
+            </form>
+        </div>
+
+    </div>
+    
+    <div id="alertmsg" class="alertmsg" onclick="toggleAlertmsg()" style="display: none; background-color: rgb(8, 192, 8); width:255px;height:auto; position:fixed; top: 14%; padding-left: 2%;padding-right: 1%; border-radius: 18px;right:0;z-index:9999;opacity: 0.98;color: #fff;word-wrap: break-word;">
+        <p id="status" style="font-weight:900; font-size: x-large; font-family: 'Times New Roman', Times, serif;margin-top: 10px;">Success</p>
+        <p id="statusmsg" style="margin-top: -12px;">Login Successfull</p>
+      </div>
+      
+    <div class="container" id="CART" style="display: flex; margin-top: 4%; flex-wrap: wrap;">
+
+
+    </div>
+
+    <span style="display: flex; justify-content: space-between;">
+        <b id="subtotal" style="margin: 3%; font-size: larger;">Sub Total : </b>
+
+    </span>
+    <form id="orderForm" style="margin-bottom: 4%;">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="4" required></textarea>
+        </div>
+        <button type="submit">Place Order</button>
+    </form>
+
+
+
+
+    <!-- footer section -->
+    <footer class="footer_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 footer-col">
+                    <div class="footer_contact">
+                        <h4>
+                            Contact Us
+                        </h4>
+                        <div class="contact_link_box">
+                            <a href="">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                <span>
+                                    Location
+                                </span>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <span>
+                                    Call +91 98653 701026
+                                </span>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                <span>
+                                    shreeammanagrocenter@gmail.com
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 footer-col">
+                    <div class="footer_detail">
+                        <a href="" class="footer-logo">
+                            Shree Amman Agro Center
+                        </a>
+                        <div class="footer_social">
+                            <a href="">
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-instagram" aria-hidden="true"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-pinterest" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 footer-col">
+                    <h4>
+                        Opening Hours
+                    </h4>
+                    <p>
+                        Monday - Saturday
+                    </p>
+                    <p>
+                        09.00 Am -10.00 Pm
+                    </p>
+                </div>
+            </div>
+            <div class="footer-info">
+                <p>
+                    &copy; <span id="displayYear"></span> All Rights Were Reserved
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- footer section -->
+
+    <!-- jQery -->
+    <script src="/js/jquery-3.4.1.min.js"></script>
+
+    <!-- isotope js -->
+    <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+
+    <!--CustomJS-->
+    <script src="/js/custom.js"></script>
+
+    <!-- bootstrap js -->
+    <script src="/js/bootstrap.js"></script>
+
+    <!--Style for Login form-->
+    <style>
+        .login-form {
+            width: 360px;
+            margin: 50px auto;
+        }
+
+        .login-form form {
+            margin-bottom: 15px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form h2 {
+            margin: 0 0 15px;
+        }
+
+        .form-control,
+        .btn {
+            min-height: 38px;
+            border-radius: 2px;
+        }
+
+        .btn {
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .input-group-addon {
+            font-size: 18px;
+        }
+
+        .login-form {
+            width: 360px;
+            margin: 100px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form h2 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .login-form form .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .login-form form input[type="text"],
+        .login-form form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding-left: 40px;
+        }
+
+        .login-form form button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .login-form form button:hover {
+            background-color: #0056b3;
+        }
+
+        .icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 10px;
+            font-size: 18px;
+            color: black;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .signup-link a {
+            color: #007bff;
+        }
+
+        .signup-link a:hover {
+            text-decoration: none;
+            color: #0056b3;
+        }
+
+        .bi-google:hover {
+            text-decoration: none !important;
+        }
+    </style>
+
+    <!--Email And Password Icons -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Sign UP controls-->
+    <script src="/js/signin-up.js"></script>
+
+    <!--|Script For Sign-IN or UP form |-->
+    <script>
+        document.getElementById('op').addEventListener('click', function () {
+            var adeDiv = document.getElementById('ade');
+            adeDiv.style.display = adeDiv.style.display === 'none' ? 'block' : 'none';
+        });
+        document.getElementById('X').addEventListener('click', function () {
+            document.getElementById('ade').style.display = 'none';
+        });
+        function openAde() {
+            event.preventDefault();
+            var ade = document.getElementById('ade');
+            ade.style.display = 'block';
+        }
+        document.getElementById('toggleSignUp').addEventListener('click', function (event) {
+            event.preventDefault();
+            var loginForm = document.getElementById('loginForm');
+            var signupForm = document.getElementById('signupForm');
+
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+        });
+        document.getElementById('togglelogin').addEventListener('click', function (event) {
+            event.preventDefault();
+            var loginForm = document.getElementById('signupForm');
+            var signupForm = document.getElementById('loginForm');
+
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+        });
+
+    </script>
+    <!--Additional InformationForm Style-->
+    <style>
+        #orderForm {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            #orderForm {
+                max-width: 100%;
+            }
+        }
+    </style>
+
+    <script>
+        const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+        console.log(cartItems);
+        const pasteSpace = document.getElementById('CART');
+        cartItems.forEach(item => {
+            console.log(item);
+            var existingItem = document.getElementById("" + item.productId);
+            if (existingItem) {
+                var quantityInput = existingItem.querySelector("input[name='quantity']");
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+                updateSubtotal();
+                return;
+            }
+            var itemDiv = document.createElement("div");
+
+            itemDiv.classList.add("row");
+            itemDiv.style.padding = "10px";
+
+            var productDiv = document.createElement("div");
+            productDiv.classList.add("product");
+            productDiv.id = item.productId;
+            productDiv.style.width = 530 + "px";
+
+            var zoomDiv = document.createElement("div");
+            zoomDiv.classList.add("zoom");
+
+            var productImage = document.createElement("img");
+            productImage.src = item.imgurl;
+            productImage.alt = "Product Image";
+            productImage.style.height = "80%";
+            productImage.style.width = "80%";
+
+            zoomDiv.appendChild(productImage);
+
+            var productInfoDiv = document.createElement("div");
+            productInfoDiv.classList.add("product-info");
+
+            var productNameDiv = document.createElement("div");
+            productNameDiv.classList.add("product-name");
+            productNameDiv.id = "product_name";
+            productNameDiv.textContent = item.prodName;
+
+            // var productDescDiv = document.createElement("div");
+            // productDescDiv.classList.add("product-type");
+            // productDescDiv.id = "product_desc";
+            // productDescDiv.textContent = productDesc;
+
+            var productPriceDiv = document.createElement("div");
+            productPriceDiv.classList.add("product-type");
+            productPriceDiv.id = "product_price";
+            productPriceDiv.innerHTML = "<b>Price :</b> " + item.orderPrice + "/-";
+
+            var productQuantity = document.createElement("div");
+            productQuantity.classList.add("product-type");
+            productQuantity.innerHTML = "<b>Quantity :</b> ";
+
+
+            var quantityInput = document.createElement("input");
+            quantityInput.type = "number";
+            quantityInput.name = "quantity";
+            quantityInput.style.borderColor = "gray";
+            quantityInput.style.width = "25%";
+            quantityInput.style.borderRadius = "10%";
+            productQuantity.appendChild(quantityInput);
+            quantityInput.value = item.quantity;
+            quantityInput.min = 1;
+            quantityInput.max = 20;
+            quantityInput.oninput = function () {
+                var regex = /^\d+$/;
+
+                if (!regex.test(this.value) || parseInt(this.value) > 25) {
+                    // If the input does not match the regular expression, set the value to an empty string
+                    this.value = '1';
+                }
+                updateSubtotal();
+            }
+
+            productInfoDiv.appendChild(productNameDiv);
+            productInfoDiv.appendChild(productPriceDiv);
+            productInfoDiv.appendChild(productQuantity);
+
+
+            var deleteProductDiv = document.createElement("div");
+            deleteProductDiv.classList.add("deleteProduct");
+
+            var deleteProductCrossDiv = document.createElement("div");
+            deleteProductCrossDiv.classList.add("deleteProduct-cross");
+            deleteProductCrossDiv.innerHTML = "<b>X</b>";
+            deleteProductCrossDiv.onclick = function () {
+                pasteSpace.removeChild(itemDiv);
+                updateSubtotal();
+            };
+
+            deleteProductDiv.appendChild(deleteProductCrossDiv);
+
+
+            productDiv.appendChild(zoomDiv);
+            productDiv.appendChild(productInfoDiv);
+            productDiv.appendChild(deleteProductDiv);
+
+            itemDiv.appendChild(productDiv);
+
+            pasteSpace.appendChild(itemDiv);
+
+            updateSubtotal();
+        });
+
+        // Function to update subtotal
+        function updateSubtotal() {
+            var subtotal = 0;
+            var items = document.querySelectorAll(".row");
+            items.forEach(function (item) {
+                var priceElement = item.querySelector(".product-info #product_price");
+                var quantityElement = item.querySelector("input[name='quantity']");
+
+                // Check if both price and quantity elements are found
+                if (priceElement && quantityElement) {
+                    var priceText = priceElement.textContent;
+                    var price = parseFloat(priceText.replace("Price :", "").replace("/-", "").trim());
+                    var quantity = parseInt(quantityElement.value);
+                    subtotal += price * quantity;
+                }
+            });
+            document.getElementById("subtotal").textContent = "Sub Total : " + subtotal.toFixed(2);
+        }
+
+        document.getElementById("orderForm").addEventListener('submit', (event) => {
+            const FormDatas = document.getElementById("orderForm");
+            event.preventDefault();
+
+
+            const cartItemsDetails = [];
+
+            var items = document.querySelectorAll(".row");
+            items.forEach(function (item) {
+                var priceElement = item.querySelector(".product-info #product_price");
+                var productS = item.querySelector(".product");
+                var quantity = item.querySelector("input[name='quantity']");
+
+
+                if (productS && quantity && priceElement) {
+                    var priceText = priceElement.textContent;
+                    var price = priceText.replace("Price :", "").replace("/-", "").trim();
+                    const productId = productS.id;
+                    cartItemsDetails.push({ productId: productId, quantity: quantity.value, orderPrice: price });
+                }
+            });
+            const formData = new FormData(FormDatas);
+
+            // Access form data using the get() method
+            const userName = formData.get('name');
+            const phoneNo = formData.get('phone');
+            const address = formData.get('address');
+
+            // Push form data to cartItemsDetails array
+            cartItemsDetails.push({ userName: userName, phoneNo: phoneNo, address: address });
+            const jsonData = JSON.stringify(cartItemsDetails);
+            console.log(cartItemsDetails);
+            fetch("http://localhost:8080/placeOrder", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: jsonData
+            }).then(res => res.json())
+                .then(data => {
+                    if (data.status === "login_now") {
+                        visible_login();
+                    } else if (data.status) {
+                        toggleAlertmsg("Success","Order Placed");
+                        window.location.href='/orders';
+                    } else {
+                        toggleAlertmsg("Failed","Order Not Placed!! Try Again!!");
+                    }
+                });
+
+        });
+
+    </script>
+
+ <!--|Script For Sign-IN or UP form |-->
+ <script>
+    document.getElementById('op').addEventListener('click', function () {
+      var adeDiv = document.getElementById('ade');
+      adeDiv.style.display = adeDiv.style.display === 'none' ? 'block' : 'none';
+    });
+    document.getElementById('X').addEventListener('click', function () {
+      document.getElementById('ade').style.display = 'none';
+    });
+    function openAde() {
+      event.preventDefault();
+      var ade = document.getElementById('ade');
+      ade.style.display = 'block';
+    }
+    document.getElementById('toggleSignUp').addEventListener('click', function (event) {
+      event.preventDefault();
+      var loginForm = document.getElementById('loginForm');
+      var signupForm = document.getElementById('signupForm');
+
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'block';
+    });
+    document.getElementById('togglelogin').addEventListener('click', function (event) {
+      event.preventDefault();
+      var loginForm = document.getElementById('signupForm');
+      var signupForm = document.getElementById('loginForm');
+
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'block';
+    });
+    function unvisble_Login() {
+      document.getElementById('ade').style.display = 'none';
+    }
+    function visible_login() {
+      document.getElementById('ade').style.display = 'block';
+      unvisibleECart();
+    }
+  </script>
+
+</body>
+
+</html>

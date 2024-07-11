@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Adjust as needed */
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  .crop-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .crop-name {
+    color: #fff;
+    font-size: 18px;
+  }
+  
+  .download-link {
+    float: right;
+  }
+  
+  .download-icon {
+    width: 30px;
+    height: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .download-icon:hover {
+    transform: scale(1.1); /* Scale up on hover */
+  }
+  

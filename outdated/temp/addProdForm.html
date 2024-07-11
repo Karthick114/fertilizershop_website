@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Product Form</title>
+<style>
+
+  /* Basic styles */
+  .addeditPane {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: grab;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .formPane {
+    display: flex;
+    flex-direction: column;
+  }
+  .labelPane {
+    margin-bottom: 8px;
+  }
+  input,
+  textarea,
+  select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    resize: none;
+  }
+  img {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  .buttonPane {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .buttonPane:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+<div class="addeditPane" id="draggable">
+  <h2>Add Product</h2>
+  <form class="formPane" id="productForm" enctype="multipart/form-data">
+    <label for="productName">Product Name:</label>
+    <input type="text" id="productName" name="name" required>
+
+    <label for="productDescription">Product Description:</label>
+    <textarea id="productDescription" name="description" rows="2" required ></textarea>
+
+    <label for="category">Category:</label>
+    <select id="category" name="category" required>
+      <option value="">Select category..</option>
+    </select>
+
+    <label for="mrpPrice">MRP Price:</label>
+    <input type="number" id="mrpPrice" name="price" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+
+    <label for="offerPrice">Offer Price:</label>
+    <input type="number" id="offerPrice" name="offer" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+
+    <label for="image">Image URL:</label>
+    <input type="text" id="image" name="imgsurl" oninput="previewImage(event)" required>
+    <img id="preview" src="#" alt="Image Preview" style="display: none; height: 100px; width: 70px;">
+    
+    <button class="buttonPane" type="submit">Add Product</button>
+  </formPane>
+</div>
+
+<script>
+  // Function to preview image before upload
+  function previewImage(event) {
+    var imageUrl = event.target.value;
+    var preview = document.getElementById('preview');
+    if (imageUrl) {
+      preview.style.display = 'block';
+      preview.src = imageUrl;
+    } else {
+      preview.style.display = 'none';
+    }
+  }
+
+
+</script>
+<script src="/home/dandy/Desktop/openworkspace/fetch-1-cons/temp/addProdEdit.js"></script>
+
+</body>
+</html>

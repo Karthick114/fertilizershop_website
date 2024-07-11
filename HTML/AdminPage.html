@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Products</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="./css/bootstrap.css" />
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="./css/font-awesome.min.css" rel="stylesheet" />
+</head>
+
+<body class="sub_page">
+
+
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="./images/Home.jpg" alt="">
+    </div>
+
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="./index.html">
+            <span>
+              Shree Amman Agro Center
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  mx-auto " style="font-weight:bold ">
+              <li class="nav-item">
+                <a class="nav-link" href="./">Home </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Products </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="./adminOrders">Orders <span class="sr-only">(current)</span></a>
+              </li>
+
+            </ul>
+            <div class="user_option">
+              <div id="op" style="cursor: pointer;">
+                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                  <i class="bi bi-person-fill" style="font-size: large;"></i>
+                </button>
+              </div>
+              <h2 style="color: #fff;margin-left: 20px;">  Admin</h2>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+
+    
+  <div id="alertmsg" class="alertmsg" onclick="toggleAlertmsg()" style="display: none; background-color: rgb(8, 192, 8); width:255px;height:auto; position:fixed; top: 14%; padding-left: 2%;padding-right: 1%; border-radius: 18px;right:0;z-index:9999;opacity: 0.98;color: #fff;word-wrap: break-word;">
+    <p id="status" style="font-weight:900; font-size: x-large; font-family: 'Times New Roman', Times, serif;margin-top: 10px;">Success</p>
+    <p id="statusmsg" style="margin-top: -12px;">Login Successfull</p>
+  </div>
+
+    <!--Login and Sign Up-->
+    <div id="ade" class="login-form"
+      style="display: none; border-radius: 20px; box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); position: fixed; top: -2%; left: 70%; transform: translateX(-50%); z-index: 9999;">
+      <label id="X"
+        style="cursor: pointer; font-size: larger; position: absolute; margin-top: -5px; margin-left: 5px; font-weight: bold; color: rgb(53, 53, 53);">X</label>
+      <img src="/images/admin.png" alit="Not Found" style="width: 15%; margin-left: 42%;">
+      <h2 style="color: black; margin-top: 3%;">Account</h2>
+      <form id="loginForm" method="POST"
+        style="margin-top: 5%; border-radius: 20px;box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);">
+        <h2 style="font-size: x-large; padding: 0;">Login</h2>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-text" style="background-color: #fff;"><i class="bi bi-envelope-fill"
+                style="color: black;"></i></span>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <span class="icon"><i class="bi bi-lock-fill"></i></span>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+        </div>
+        <a href="#" id="forgotPasswordLink" style="margin-left: 20%;text-decoration: none;">Forgot Password??</a>
+        <div class="signup-link">
+          Don't have an account!? <a href="#" id="toggleSignUp">Sign up</a>
+        </div><br>
+        <button type="submit" class="btn btn-primary" style="border-radius: 30px;">Login</button>
+      </form>
+      <!-- Sign-up form -->
+      <form id="signupForm" method="POST"
+        style="display: none; margin-top: 5%; border-radius: 20px;box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);">
+        <h2 style="font-size: x-large; padding: 0;">Sign-up</h2>
+        <div class="form-group">
+          <span class="icon"><i class="bi bi-person-fill"></i></span>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-text" style="background-color: #fff;"><i class="bi bi-envelope-fill"
+                style="color: black;"></i></span>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <span class="icon"><i class="bi bi-lock-fill"></i></span>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+        </div>
+
+        <div class="signup-link">
+          Already Have An Account!? <a href="#" id="togglelogin">Login</a>
+        </div><br>
+        <button type="submit" class="btn btn-primary" style="border-radius: 30px;">Sign Up</button>
+      </form>
+      <!--Forgot Password-->
+      <form id="forgotPasswordForm" action="#" method="POST"
+        style=" display: none; margin-top: 5%; border-radius: 20px;box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);">
+        <h2 style="font-size: x-large; padding: 0;">Reset Password</h2>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-text" style="background-color: #fff;"><i class="bi bi-envelope-fill"
+                style="color: black;"></i></span>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+          </div>
+        </div>
+        <div class="footer_social">
+          <a href="">
+            <i class="bi bi-google" style="text-decoration: none; margin-left: 42%;font-size: 150%;"></i>
+          </a>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" style="border-radius: 30px;">Reset Password</button>
+      </form>
+    </div>
+
+    <!--Start of Of Add or Edit  Product-->
+    <div class="container mt-5" style="position:absolute;">
+      <div class="add-product-container"
+        style="display: none; width: 50%; box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);margin-left: 38%; position: fixed; z-index: 1000;"
+        id="addProductContainer">
+        <button type="button" class="close" aria-label="Close"
+          style="position: absolute; top: 3.5%; left: 5%;font-size: x-larger;font-weight: bold;" id="closeButton">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h1 class="text-center mb-4">Add Products</h1>
+        <div>
+          <form enctype="multipart/form-data" id="productForm">
+            <div class="form-group">
+              <label for="productName">Product Name</label>
+              <input type="text" name="name" class="form-control" id="productName" placeholder="Enter product name"
+                required>
+            </div>
+            <div class="form-group">
+              <label for="productCategory">Product Category</label>
+              <select class="form-control" id="category" name="category" required>
+                <!--Content Fetch from the DB-->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="productDescription">Product Description</label>
+              <textarea class="form-control" name="description" id="productDescription" rows="2" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="mrpPrice">MRP Price</label>
+              <input type="number" class="form-control" id="mrpPrice" placeholder="Enter MRP price" name="price"
+                required>
+            </div>
+            <div class="form-group">
+              <label for="offeredPrice">Offered Price</label>
+              <input type="number" class="form-control" id="offeredPrice" placeholder="Enter offered price" name="offer"
+                required>
+            </div>
+            <div class="form-group">
+              <label for="imageUrl">Image URL</label>
+              <input type="url" class="form-control" id="imageUrl" oninput="previewImage(event)"
+                placeholder="Enter image URL" name="imgsurl" required>
+            </div>
+            <div class="form-group">
+              <label for="imagePreview">Image Preview</label><br>
+              <img id="preview" src="#" name="previewer" style="max-width: 100%; max-height: 200px;">
+            </div>
+            <button type="submit" id="A_Ebutton" class="btn btn-primary btn-block">Add Product</button>
+            <button type="button" id="deleteProduct" onclick="deleProduct()" class="btn btn-danger btn-block">Delete
+              Product</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!--Edit Category-->
+    <div class="container mt-5" style="position:relative;">
+      <div class="add-product-container"
+        style="display: none; width: 50%; box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);margin-left: 20%; margin-top: 10%; position: fixed; z-index: 1000;"
+        id="editCategoryContainer">
+        <button type="button" class="close" aria-label="Close"
+          style="position: absolute; top: 3.5%; left: 5%;font-size: x-larger;font-weight: bold;" id="closeCateButton">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h2 class="text-center mb-4">Category Management <i class="fas fa-cogs"></i></h2>
+        <div>
+          <div class="formContainer">
+
+            <ul class="categoryList" id="categoryList">
+
+            </ul>
+            <div>
+              <button class="addBtn" onclick="addCategory()"><i class="fas fa-plus"></i> Add Category</button>
+              <button class="saveBtn" onclick="finalsaveCategory()"
+                style="background-color: #28a745; margin-left: 87px;"><i class="fas fa-check"></i> Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- food section -->
+
+  <section class="food_section layout_padding-bottom">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Our Feritlizer Product
+        </h2>
+      </div>
+
+      <ul class="filters_menu">
+        <li class="active" data-filter="*">All</li>
+      </ul>
+
+      <div class="filters-content">
+
+      </div>
+      <div class="btn-box">
+        <a href="">
+          View More
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- end food section -->
+
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              Contact Us
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Location
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +91 98653 701026
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  shreeammanagrocenter@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              Shree Amman Agro Center
+            </a>
+            <div class="footer_social">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            Opening Hours
+          </h4>
+          <p>
+            Monday - Saturday
+          </p>
+          <p>
+            09.00 Am -10.00 Pm
+          </p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Were Reserved
+        </p>
+      </div>
+    </div>
+  </footer>
+  <!-- footer section -->
+
+  <!-- jQery -->
+  <script src="/js/jquery-3.4.1.min.js"></script>
+
+  <!-- isotope js -->
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+
+  <!--CustomJS-->
+  <script src="/js/custom.js"></script>
+
+  <!--Fecth Products JS-->
+  <script src="./js/mangeProduct.js"></script>
+
+  <!-- bootstrap js -->
+  <script src="/js/bootstrap.js"></script>
+
+  <style>
+    #in1 {
+      width: 400px;
+      margin-left: -50px;
+    }
+
+    .custom-icon-color {
+      color: blue;
+      /* Change this color as per your preference */
+    }
+
+    #in1:hover {
+      box-shadow: 0 0 10px rgba(0, 8, 255, 0.5);
+      transform: scale(1);
+    }
+
+    #o1:hover {
+      box-shadow: 0 0 10px rgba(0, 8, 255, 0.5);
+      transform: scale(1);
+    }
+
+    .add-product-container {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 20px;
+      background-color: aliceblue;
+      /* Background color remains unchanged */
+      max-height: 490px;
+      overflow-y: auto;
+      /* Hide scrollbar for Firefox */
+      scrollbar-width: none;
+      /* Firefox */
+      /* Hide scrollbar for Webkit */
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Chrome, Safari, Opera */
+    }
+
+    /* Hide scrollbar for Chrome, Safari, and Opera */
+    .add-product-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    .form-control {
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control:focus {
+      outline: none;
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      border-radius: 20px;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .custom-icon-color {
+      color: blue;
+      /* Change this color as per your preference */
+    }
+
+    .wholeContainer {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 500px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    }
+
+    .formContainer {
+      min-width: 100px;
+      max-width: 600px;
+      margin: auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+
+    .categoryList {
+      list-style: none;
+      padding: 0;
+    }
+
+    .categoryItem {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .categoryItem:last-child {
+      border-bottom: none;
+    }
+
+    .categoryText {
+      flex: 1;
+    }
+
+    .editBtn,
+    .deleteBtn,
+    .saveBtn,
+    .cancelBtn {
+      cursor: pointer;
+      padding: 8px 15px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .editBtn,
+    .deleteBtn {
+      background-color: #007bff;
+      color: #fff;
+      margin-left: 10px;
+    }
+
+    .editBtn:hover,
+    .deleteBtn:hover {
+      background-color: #0056b3;
+    }
+
+    .saveBtn,
+    .cancelBtn {
+      background-color: #28a745;
+      color: #fff;
+      margin-left: 10px;
+    }
+
+    .saveBtn:hover,
+    .cancelBtn:hover {
+      background-color: #218838;
+    }
+
+    .addBtn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .addBtn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Responsive styles */
+    @media only screen and (max-width: 600px) {
+      .formContainer {
+        padding: 10px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+
+  <!--Style for loginForm-->
+  <style>
+    .login-form {
+      width: 360px;
+      margin: 50px auto;
+    }
+
+    .login-form form {
+      margin-bottom: 15px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-form h2 {
+      margin: 0 0 15px;
+    }
+
+    .form-control,
+    .btn {
+      min-height: 38px;
+      border-radius: 2px;
+    }
+
+    .btn {
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .input-group-addon {
+      font-size: 18px;
+    }
+
+    .login-form {
+      width: 360px;
+      margin: 100px auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-form h2 {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .login-form form .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .login-form form input[type="text"],
+    .login-form form input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding-left: 40px;
+    }
+
+    .login-form form button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .login-form form button:hover {
+      background-color: #0056b3;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 10px;
+      font-size: 18px;
+      color: black;
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .signup-link a {
+      color: #007bff;
+    }
+
+    .signup-link a:hover {
+      text-decoration: none;
+      color: #0056b3;
+    }
+
+    .bi-google:hover {
+      text-decoration: none !important;
+    }
+  </style>
+
+  <!--|Script For Sign-IN or UP form |-->
+  <script>
+    document.getElementById('op').addEventListener('click', function () {
+      var adeDiv = document.getElementById('ade');
+      adeDiv.style.display = adeDiv.style.display === 'none' ? 'block' : 'none';
+    });
+    document.getElementById('X').addEventListener('click', function () {
+      document.getElementById('ade').style.display = 'none';
+    });
+    function openAde() {
+      event.preventDefault();
+      var ade = document.getElementById('ade');
+      ade.style.display = 'block';
+    }
+    document.getElementById('toggleSignUp').addEventListener('click', function (event) {
+      event.preventDefault();
+      var loginForm = document.getElementById('loginForm');
+      var signupForm = document.getElementById('signupForm');
+
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'block';
+    });
+    document.getElementById('togglelogin').addEventListener('click', function (event) {
+      event.preventDefault();
+      var loginForm = document.getElementById('signupForm');
+      var signupForm = document.getElementById('loginForm');
+
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'block';
+    });
+
+  </script>
+
+  <!--Email And Password Icons -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <script src="./js/signin-up.js"></script>
+
+</body>
+
+</html>
